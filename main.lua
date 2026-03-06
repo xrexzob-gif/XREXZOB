@@ -1,39 +1,25 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // !!! RGB NEON FLOW ENGINE (PALING ATAS) !!!
-local function applyFlow(obj)
-    if not obj:FindFirstChild("NeonFlow") then
-        local gradient = Instance.new("UIGradient")
-        gradient.Name = "NeonFlow"
-        gradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
-            ColorSequenceKeypoint.new(0.2, Color3.fromRGB(255, 255, 0)),
-            ColorSequenceKeypoint.new(0.4, Color3.fromRGB(0, 255, 0)),
-            ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 255)),
-            ColorSequenceKeypoint.new(0.8, Color3.fromRGB(0, 0, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
-        })
-        gradient.Parent = obj
-    end
-end
-
+-- // !!! MESIN PELANGI KHUSUS HURUF (RGB TEXT) !!!
 task.spawn(function()
-    local offset = 0
-    while task.wait(0.01) do 
-        offset = offset + 0.05
-        if offset >= 1 then offset = 0 end
+    local counter = 0
+    while task.wait(0.01) do -- Speed pelangi (makin kecil makin ngebut)
+        counter = counter + 0.01
+        local color = Color3.fromHSV(counter % 1, 1, 1)
+        
+        -- Cari semua teks di Menu lo dan paksa warnanya ganti
         for _, v in pairs(game.CoreGui:GetDescendants()) do
-            if (v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("UIStroke") or v:IsA("Frame")) and not v:IsA("ViewportFrame") then
-                applyFlow(v)
-                local f = v:FindFirstChild("NeonFlow")
-                if f then f.Offset = Vector2.new(-offset, 0) end
+            if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox") then
+                v.TextColor3 = color
+            elseif v:IsA("UIStroke") then
+                v.Color = color
             end
         end
     end
 end)
 
 -- // SETTINGAN OWNER & KEY
-local MyUsername = "tolongggggs"
+local MyUsername = "tolongggggs" -- Username lo otomatis masuk
 local CorrectKey = "XREX"
 
 local UseKey = true
@@ -43,14 +29,14 @@ end
 
 local Window = Rayfield:CreateWindow({
    Name = "XREXZOB",
-   LoadingTitle = "Owner Mode: " .. MyUsername,
-   LoadingSubtitle = "RGB FLOW ENABLED",
+   LoadingTitle = "Owner: " .. MyUsername,
+   LoadingSubtitle = "TEXT RGB ENABLED",
    ConfigurationSaving = { Enabled = false },
    KeySystem = UseKey,
    KeySettings = {
       Title = "XREXZOB | PRIVATE",
       Subtitle = "Key: XREX",
-      Note = "Bypass active for " .. MyUsername,
+      Note = "Auto-Bypass active for " .. MyUsername,
       FileName = "XREXKey",
       SaveKey = true,
       GrabKeyFromSite = false,
@@ -96,7 +82,7 @@ local TargetName = ""
 
 TabPlayer:CreateInput({
    Name = "Nama Player",
-   PlaceholderText = "Ketik di sini...",
+   PlaceholderText = "Ketik usn target...",
    Callback = function(Text) TargetName = Text end,
 })
 
@@ -154,3 +140,16 @@ local function PlayEm(id)
     local a = Instance.new("Animation")
     a.AnimationId = "rbxassetid://"..id
     _G.Track = hum:LoadAnimation(a)
+    _G.Track.Looped = true
+    _G.Track:Play()
+    task.spawn(function()
+        while _G.Track do
+            _G.Track:AdjustSpeed(_G.EMSpeed)
+            task.wait(0.1)
+        end
+    end)
+end
+
+TabEmote:CreateButton({ Name = "Hype Dance", Callback = function() PlayEm("3695333486") end })
+TabEmote:CreateButton({ Name = "Old School", Callback = function() PlayEm("3333499508") end })
+TabEmote:CreateButton({ Name = "Stop", Callback = function() if _G.Track then _G.Track:Stop() _G.Track:Destroy() _G.Track = nil end end })
