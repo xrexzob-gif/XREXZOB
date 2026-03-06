@@ -1,31 +1,30 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // !!! MESIN PELANGI JALAN (UIGRADIENT MOVING ENGINE) - VIP !!!
+-- // !!! MESIN PELANGI JALAN (RAINBOW FLOW ENGINE) - VIP !!!
 local function applyVIPFlow(obj)
     if not obj:FindFirstChild("VIPFlow") then
         local gradient = Instance.new("UIGradient")
         gradient.Name = "VIPFlow"
-        -- Set gradasi pelangi penuh
+        -- Gradasi Pelangi Full (Pink-Purple-Blue-Green-Yellow-Red)
         gradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)), -- Merah
-            ColorSequenceKeypoint.new(0.2, Color3.fromRGB(255, 255, 0)), -- Kuning
-            ColorSequenceKeypoint.new(0.4, Color3.fromRGB(0, 255, 0)), -- Hijau
-            ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 255)), -- Cyan
-            ColorSequenceKeypoint.new(0.8, Color3.fromRGB(0, 0, 255)), -- Biru
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0)) -- Merah (Loop)
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 255)), -- Pink
+            ColorSequenceKeypoint.new(0.2, Color3.fromRGB(150, 0, 255)), -- Purple
+            ColorSequenceKeypoint.new(0.4, Color3.fromRGB(0, 0, 255)), -- Blue
+            ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 0)), -- Green
+            ColorSequenceKeypoint.new(0.8, Color3.fromRGB(255, 255, 0)), -- Yellow
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255)) -- Loop Pink
         })
         gradient.Parent = obj
     end
 end
 
--- Loop untuk ngejalanin efek gradasinya (NGEBUT)
+-- Task buat ngejalanin animasinya biar ngeroll (NGEBUT)
 task.spawn(function()
     local offset = 0
-    while task.wait(0.01) do -- Speed jalan pelangi (makin kecil makin ngebut)
-        offset = offset + 0.05 -- Kecepatan flow gradasi
+    while task.wait(0.01) do 
+        offset = offset + 0.05 -- Kecepatan jalan pelangi
         if offset >= 1 then offset = 0 end
         
-        -- Paksa gradasi ke Text, Button, Stroke (garis), dan Frame
         for _, v in pairs(game.CoreGui:GetDescendants()) do
             if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("UIStroke") or v:IsA("Frame") then
                 applyVIPFlow(v)
@@ -39,8 +38,8 @@ task.spawn(function()
 end)
 
 -- // SETTINGAN OWNER & KEY
-local MyUsername = "tolongggggs" -- Username lo udah masuk sini
-local CorrectKey = "XREX"
+local MyUsername = "tolongggggs"
+local CorrectKey = "XREXZOB_VIP_2024"
 
 local UseKey = true
 if game.Players.LocalPlayer.Name == MyUsername then
@@ -49,24 +48,20 @@ end
 
 local Window = Rayfield:CreateWindow({
    Name = "XREXZOB VIP",
-   LoadingTitle = "VIP ACCESS: " .. MyUsername,
-   LoadingSubtitle = "RAINBOW FLOW ENABLED",
+   LoadingTitle = "VIP PRIVATE ACCESS",
+   LoadingSubtitle = "RAINBOW FLOW ACTIVE",
    ConfigurationSaving = { Enabled = false },
    KeySystem = UseKey,
    KeySettings = {
-      Title = "XREXZOB VIP | PRIVATE",
-      Subtitle = "Key: XREX",
-      Note = "Owner bypass aktif!",
+      Title = "XREXZOB VIP | KEY SYSTEM",
+      Subtitle = "Khusus Member VIP",
+      Note = "Owner bypass active for " .. MyUsername,
       FileName = "XREXKey",
       SaveKey = true,
       GrabKeyFromSite = false,
       Key = {CorrectKey}
    }
 })
-
----
--- SEMUA FITUR DI BAWAH INI TETEP ADA (NGGAK DIHAPUS)
----
 
 -- // TAB MOVEMENT
 local TabMove = Window:CreateTab("Movement", 4483362458)
@@ -79,24 +74,47 @@ TabMove:CreateSlider({
    CurrentValue = 16,
    Callback = function(v)
       _G.WSValue = v
-      if _G.SpeedToggle then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end
+      if _G.SpeedEnabled then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end
    end,
 })
 
 TabMove:CreateToggle({
-   Name = "Aktifkan Speed",
+   Name = "Speed Hack",
    CurrentValue = false,
    Callback = function(v)
-      _G.SpeedToggle = v
+      _G.SpeedEnabled = v
       task.spawn(function()
-         while _G.SpeedToggle do
-            if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+         while _G.SpeedEnabled do
+            if game.Players.LocalPlayer.Character then
                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WSValue
             end
             task.wait(0.1)
          end
-         if game.Players.LocalPlayer.Character then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16 end
+         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
       end)
+   end,
+})
+
+TabMove:CreateToggle({
+   Name = "Fly (Terbang)",
+   CurrentValue = false,
+   Callback = function(v)
+      _G.Flying = v
+      local root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+      if v then
+         local bv = Instance.new("BodyVelocity", root)
+         bv.Name = "XREXFly"
+         bv.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+         task.spawn(function()
+            while _G.Flying do
+               bv.Velocity = game.Workspace.CurrentCamera.CFrame.LookVector * 100
+               task.wait()
+            end
+            bv:Destroy()
+         end)
+      else
+         if root:FindFirstChild("XREXFly") then root.XREXFly:Destroy() end
+      end
    end,
 })
 
@@ -105,8 +123,8 @@ local TabPlayer = Window:CreateTab("Player Tools", 4483362458)
 local TargetName = ""
 
 TabPlayer:CreateInput({
-   Name = "Target Name",
-   PlaceholderText = "Ketik USN Target...",
+   Name = "Input Nama Target",
+   PlaceholderText = "Username...",
    Callback = function(Text) TargetName = Text end,
 })
 
@@ -122,7 +140,7 @@ TabPlayer:CreateButton({
 })
 
 TabPlayer:CreateButton({
-   Name = "Nempel (Carry Position)",
+   Name = "Nempel (Carry)",
    Callback = function()
       _G.Nempel = true
       for _, p in pairs(game.Players:GetPlayers()) do
@@ -148,7 +166,6 @@ TabPlayer:CreateButton({
 -- // TAB EMOTES
 local TabEmote = Window:CreateTab("Emotes", 4483362458)
 _G.EMSpeed = 1
-_G.Track = nil
 
 TabEmote:CreateSlider({
    Name = "Speed Joget",
@@ -176,4 +193,32 @@ end
 
 TabEmote:CreateButton({ Name = "Hype Dance", Callback = function() PlayEm("3695333486") end })
 TabEmote:CreateButton({ Name = "Old School", Callback = function() PlayEm("3333499508") end })
-TabEmote:CreateButton({ Name = "Stop Emote", Callback = function() if _G.Track then _G.Track:Stop() _G.Track:Destroy() _G.Track = nil end end })
+TabEmote:CreateButton({ Name = "STOP", Callback = function() if _G.Track then _G.Track:Stop() _G.Track:Destroy() _G.Track = nil end end })
+
+-- // TAB EXTRA
+local TabExtra = Window:CreateTab("Extra", 4483362458)
+TabExtra:CreateToggle({
+   Name = "ESP (Highlight)",
+   CurrentValue = false,
+   Callback = function(v)
+      _G.ESP = v
+      while _G.ESP do
+         for _, p in pairs(game.Players:GetPlayers()) do
+            if p ~= game.Players.LocalPlayer and p.Character then
+               local h = p.Character:FindFirstChild("Highlight") or Instance.new("Highlight", p.Character)
+               h.Enabled = true
+            end
+         end
+         task.wait(1)
+      end
+   end,
+})
+
+TabExtra:CreateButton({
+   Name = "Anti-Lag",
+   Callback = function()
+      for _, v in pairs(game.Workspace:GetDescendants()) do
+         if v:IsA("Texture") or v:IsA("Decal") then v:Destroy() end
+      end
+   end,
+})
