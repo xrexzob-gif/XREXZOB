@@ -1,19 +1,38 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // !!! MESIN WARNA VIDEO (PINK-PURPLE-BLUE NGEBUT DI SETIAP HURUF) !!!
-task.spawn(function()
-    local counter = 0
-    while task.wait(0.01) do
-        counter = counter + 0.05 -- Speed warna ngebut
-        
-        -- Warna Gradasi Video: Pink (Hue ~0.85) ke Ungu/Biru (Hue ~0.65)
-        local vidColor = Color3.fromHSV(0.65 + (math.sin(counter) * 0.15), 0.7, 1)
+-- // !!! MESIN PELANGI JALAN (UIGRADIENT MOVING ENGINE) - VIP !!!
+local function applyVIPFlow(obj)
+    if not obj:FindFirstChild("VIPFlow") then
+        local gradient = Instance.new("UIGradient")
+        gradient.Name = "VIPFlow"
+        -- Set gradasi pelangi penuh
+        gradient.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)), -- Merah
+            ColorSequenceKeypoint.new(0.2, Color3.fromRGB(255, 255, 0)), -- Kuning
+            ColorSequenceKeypoint.new(0.4, Color3.fromRGB(0, 255, 0)), -- Hijau
+            ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 255)), -- Cyan
+            ColorSequenceKeypoint.new(0.8, Color3.fromRGB(0, 0, 255)), -- Biru
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0)) -- Merah (Loop)
+        })
+        gradient.Parent = obj
+    end
+end
 
+-- Loop untuk ngejalanin efek gradasinya (NGEBUT)
+task.spawn(function()
+    local offset = 0
+    while task.wait(0.01) do -- Speed jalan pelangi (makin kecil makin ngebut)
+        offset = offset + 0.05 -- Kecepatan flow gradasi
+        if offset >= 1 then offset = 0 end
+        
+        -- Paksa gradasi ke Text, Button, Stroke (garis), dan Frame
         for _, v in pairs(game.CoreGui:GetDescendants()) do
-            if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox") then
-                v.TextColor3 = vidColor
-            elseif v:IsA("UIStroke") then
-                v.Color = vidColor
+            if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("UIStroke") or v:IsA("Frame") then
+                applyVIPFlow(v)
+                local gradient = v:FindFirstChild("VIPFlow")
+                if gradient then
+                    gradient.Offset = Vector2.new(-offset, 0)
+                end
             end
         end
     end
@@ -31,13 +50,13 @@ end
 local Window = Rayfield:CreateWindow({
    Name = "XREXZOB VIP",
    LoadingTitle = "VIP ACCESS: " .. MyUsername,
-   LoadingSubtitle = "VIDEO THEME ENABLED",
+   LoadingSubtitle = "RAINBOW FLOW ENABLED",
    ConfigurationSaving = { Enabled = false },
    KeySystem = UseKey,
    KeySettings = {
       Title = "XREXZOB VIP | PRIVATE",
       Subtitle = "Key: XREX",
-      Note = "Owner bypass aktif buat " .. MyUsername,
+      Note = "Owner bypass aktif!",
       FileName = "XREXKey",
       SaveKey = true,
       GrabKeyFromSite = false,
@@ -45,7 +64,11 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
--- // TAB MOVEMENT (FITUR LENGKAP)
+---
+-- SEMUA FITUR DI BAWAH INI TETEP ADA (NGGAK DIHAPUS)
+---
+
+-- // TAB MOVEMENT
 local TabMove = Window:CreateTab("Movement", 4483362458)
 _G.WSValue = 16
 
@@ -77,13 +100,13 @@ TabMove:CreateToggle({
    end,
 })
 
--- // TAB PLAYER TOOLS (TP & NEMPEL - SESUAI REQUEST)
+-- // TAB PLAYER TOOLS (TP & NEMPEL)
 local TabPlayer = Window:CreateTab("Player Tools", 4483362458)
 local TargetName = ""
 
 TabPlayer:CreateInput({
    Name = "Target Name",
-   PlaceholderText = "Ketik usn target...",
+   PlaceholderText = "Ketik USN Target...",
    Callback = function(Text) TargetName = Text end,
 })
 
@@ -122,7 +145,7 @@ TabPlayer:CreateButton({
    Callback = function() _G.Nempel = false end,
 })
 
--- // TAB EMOTES (HYPE & OLD SCHOOL)
+-- // TAB EMOTES
 local TabEmote = Window:CreateTab("Emotes", 4483362458)
 _G.EMSpeed = 1
 _G.Track = nil
