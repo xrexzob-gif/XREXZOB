@@ -1,13 +1,12 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // !!! MESIN PELANGI KHUSUS HURUF (RGB TEXT) !!!
+-- // !!! MESIN PELANGI NGEBUT KHUSUS TEKS (VIP RGB) !!!
 task.spawn(function()
     local counter = 0
-    while task.wait(0.01) do -- Speed pelangi (makin kecil makin ngebut)
-        counter = counter + 0.01
+    while task.wait(0.01) do -- Speed pelangi ngebut
+        counter = counter + 0.02
         local color = Color3.fromHSV(counter % 1, 1, 1)
         
-        -- Cari semua teks di Menu lo dan paksa warnanya ganti
         for _, v in pairs(game.CoreGui:GetDescendants()) do
             if v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox") then
                 v.TextColor3 = color
@@ -19,7 +18,7 @@ task.spawn(function()
 end)
 
 -- // SETTINGAN OWNER & KEY
-local MyUsername = "tolongggggs" -- Username lo otomatis masuk
+local MyUsername = "tolongggggs" -- AKUN RAJA
 local CorrectKey = "XREX"
 
 local UseKey = true
@@ -28,15 +27,15 @@ if game.Players.LocalPlayer.Name == MyUsername then
 end
 
 local Window = Rayfield:CreateWindow({
-   Name = "XREXZOB",
-   LoadingTitle = "Owner: " .. MyUsername,
-   LoadingSubtitle = "TEXT RGB ENABLED",
+   Name = "XREXZOB VIP",
+   LoadingTitle = "VIP ACCESS: " .. MyUsername,
+   LoadingSubtitle = "RGB NEON MODE ENABLED",
    ConfigurationSaving = { Enabled = false },
    KeySystem = UseKey,
    KeySettings = {
-      Title = "XREXZOB | PRIVATE",
+      Title = "XREXZOB VIP | PRIVATE",
       Subtitle = "Key: XREX",
-      Note = "Auto-Bypass active for " .. MyUsername,
+      Note = "Owner bypass aktif buat " .. MyUsername,
       FileName = "XREXKey",
       SaveKey = true,
       GrabKeyFromSite = false,
@@ -76,13 +75,13 @@ TabMove:CreateToggle({
    end,
 })
 
--- // TAB PLAYER TOOLS
+-- // TAB PLAYER TOOLS (TP & NEMPEL)
 local TabPlayer = Window:CreateTab("Player Tools", 4483362458)
 local TargetName = ""
 
 TabPlayer:CreateInput({
-   Name = "Nama Player",
-   PlaceholderText = "Ketik usn target...",
+   Name = "Target Name",
+   PlaceholderText = "Ketik USN Target...",
    Callback = function(Text) TargetName = Text end,
 })
 
