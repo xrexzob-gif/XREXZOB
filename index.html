@@ -1,19 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>REMOTE KEREK</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID_SYSTEM</title>
     <style>
-        body { background: #111; color: white; text-align: center; font-family: sans-serif; padding: 50px; }
-        .tombol { display: block; padding: 25px; margin: 20px auto; background: #ff4757; color: white; text-decoration: none; font-weight: bold; border-radius: 12px; width: 80%; font-size: 20px; }
-        .tombol:hover { background: #ff6b81; }
+        :root {
+            --bg-color: #050505;
+            --main-color: #ff0000; /* Ganti ke #00ff00 kalau mau vibe Matrix */
+            --text-shadow: 0 0 5px var(--main-color);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        /* Efek Noise di Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://media.giphy.com/media/oEI9uWUicKgR6X5yI3/giphy.gif');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .glitch {
+            font-size: 5rem;
+            font-weight: bold;
+            position: relative;
+            text-shadow: var(--text-shadow);
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        .glitch:before, .glitch:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+        }
+
+        .glitch:before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch:after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            /* ... more frames ... */
+            100% { clip: rect(89px, 9999px, 98px, 0); }
+        }
+
+        .sub-text {
+            letter-spacing: 10px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+
+        nav {
+            margin-top: 50px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--main-color);
+            color: black;
+            box-shadow: 0 0 20px var(--main-color);
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100%; }
+        }
     </style>
 </head>
 <body>
-    <h1>REMOTE KONTROL KEREK</h1>
-    <p>Pilih kemana Web "Perjalanan Kita" mau dipindahin:</p>
 
-    <a class="tombol" href="https://github.com/Kerek/perjalanan-kita/edit/main/perintah.txt" target="_blank">KLIK UNTUK GANTI HALAMAN</a>
+    <div class="scanline"></div>
 
-    <p style="color: #aaa;"><i>Setelah klik, tulis link (misal: https://google.com) di kotak, lalu klik "Commit changes" di bawahnya.</i></p>
+    <div class="container">
+        <div class="glitch" data-text="DEATH_CODE">DEATH_CODE</div>
+        <p class="sub-text">We are watching you</p>
+        
+        <nav>
+            <a href="#">PROJECTS</a>
+            <a href="#">MANIFESTO</a>
+            <a href="#">TERMINAL</a>
+        </nav>
+    </div>
+
 </body>
 </html>
