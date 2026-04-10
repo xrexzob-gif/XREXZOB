@@ -2,143 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOID_SYSTEM</title>
+    <title>XREXZOB // FORENSIC_NODE</title>
     <style>
-        :root {
-            --bg-color: #050505;
-            --main-color: #ff0000; /* Ganti ke #00ff00 kalau mau vibe Matrix */
-            --text-shadow: 0 0 5px var(--main-color);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--main-color);
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-transform: uppercase;
-        }
-
-        /* Efek Noise di Background */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://media.giphy.com/media/oEI9uWUicKgR6X5yI3/giphy.gif');
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        .container {
-            text-align: center;
-            z-index: 1;
-        }
-
-        .glitch {
-            font-size: 5rem;
-            font-weight: bold;
-            position: relative;
-            text-shadow: var(--text-shadow);
-            animation: glitch 1s linear infinite;
-        }
-
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px, 0) skew(0deg); }
-            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-            62% { transform: translate(0, 0) skew(5deg); }
-        }
-
-        .glitch:before, .glitch:after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%;
-        }
-
-        .glitch:before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-
-        .glitch:after {
-            left: -2px;
-            text-shadow: -2px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(31px, 9999px, 94px, 0); }
-            20% { clip: rect(62px, 9999px, 42px, 0); }
-            /* ... more frames ... */
-            100% { clip: rect(89px, 9999px, 98px, 0); }
-        }
-
-        .sub-text {
-            letter-spacing: 10px;
-            font-size: 1.2rem;
-            opacity: 0.7;
-            margin-top: 20px;
-        }
-
-        nav {
-            margin-top: 50px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 0.9rem;
-            border: 1px solid #333;
-            padding: 10px 20px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            background: var(--main-color);
-            color: black;
-            box-shadow: 0 0 20px var(--main-color);
-        }
-
-        /* Scanline Effect */
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 10;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
-            position: absolute;
-            bottom: 100%;
-            animation: scanline 6s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100%; }
-        }
+        :root { --neon: #00ffff; --blood: #ff0000; --bg: #020202; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Consolas', monospace; margin: 0; padding: 20px; font-size: 12px; line-height: 1.2; overflow: hidden; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 95vh; }
+        .panel { border: 1px solid #1a1a1a; padding: 15px; position: relative; background: rgba(5,5,5,0.8); }
+        .panel:hover { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,255,0.1); }
+        .header { color: var(--blood); font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid var(--blood); padding-bottom: 5px; text-transform: uppercase; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #111; }
+        .val { color: #fff; }
+        #log-box { font-size: 10px; color: #444; overflow: hidden; height: 150px; }
+        .scanner { width: 100%; height: 2px; background: var(--neon); position: absolute; top: 0; left: 0; animation: scan 3s linear infinite; opacity: 0.3; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.1; }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
+<canvas id="matrix"></canvas>
 
-    <div class="container">
-        <div class="glitch" data-text="DEATH_CODE">DEATH_CODE</div>
-        <p class="sub-text">We are watching you</p>
-        
-        <nav>
-            <a href="#">PROJECTS</a>
-            <a href="#">MANIFESTO</a>
-            <a href="#">TERMINAL</a>
-        </nav>
+<div class="grid">
+    <div class="panel">
+        <div class="scanner"></div>
+        <div class="header">TARGET_INTEL (YOU)</div>
+        <div class="data-row"><span>PUBLIC_IP:</span> <span class="val" id="ip">FETCHING...</span></div>
+        <div class="data-row"><span>BROWSER:</span> <span class="val" id="brw">...</span></div>
+        <div class="data-row"><span>PLATFORM:</span> <span class="val" id="plt">...</span></div>
+        <div class="data-row"><span>CORES:</span> <span class="val" id="cor">...</span></div>
+        <div class="data-row"><span>MEMORY:</span> <span class="val" id="mem">~...GB</span></div>
+        <div class="data-row"><span>LANGUAGE:</span> <span class="val" id="lng">...</span></div>
     </div>
 
+    <div class="panel" style="grid-row: span 2;">
+        <div class="header" style="color: var(--neon); border-color: var(--neon);">XREXZOB // MAIN_FRAME</div>
+        <p style="color: #fff; font-size: 14px;">Welcome to the Abyss, XREXZOB.</p>
+        <p>Web ini adalah node pengintaian pribadi. Gunakan untuk monitoring koneksi dan identitas device.</p>
+        
+        <div class="header" style="margin-top: 30px;">ACTIVE_REPOS</div>
+        <div class="data-row"><a href="#" style="color:var(--neon)">> REPO_ALPHA</a> <span class="val">[ONLINE]</span></div>
+        <div class="data-row"><a href="#" style="color:var(--neon)">> REPO_BETA</a> <span class="val">[ENCRYPTED]</span></div>
+        <div class="data-row"><a href="#" style="color:var(--neon)">> SHADOW_API</a> <span class="val">[STABLE]</span></div>
+
+        <div id="log-box" style="margin-top: 50px;"></div>
+    </div>
+
+    <div class="panel">
+        <div class="header">NETWORK_DIAGNOSTIC</div>
+        <div class="data-row"><span>LATENCY:</span> <span class="val" id="lat">0ms</span></div>
+        <div class="data-row"><span>STATUS:</span> <span class="val" id="stt">STABLE</span></div>
+        <div class="data-row"><span>UPTIME:</span> <span class="val" id="upt">00:00:00</span></div>
+    </div>
+</div>
+
+<script>
+    // System Data
+    document.getElementById('brw').innerText = navigator.userAgent.split(' ')[0];
+    document.getElementById('plt').innerText = navigator.platform;
+    document.getElementById('cor').innerText = navigator.hardwareConcurrency + " THREADS";
+    document.getElementById('mem').innerText = (navigator.deviceMemory || '4+') + "GB";
+    document.getElementById('lng').innerText = navigator.language.toUpperCase();
+
+    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
+        document.getElementById('ip').innerText = d.ip;
+    });
+
+    // Latency Monitor
+    setInterval(() => {
+        const start = Date.now();
+        fetch('https://www.google.com/favicon.ico', {mode: 'no-cors'}).then(() => {
+            document.getElementById('lat').innerText = (Date.now() - start) + "ms";
+        });
+    }, 5000);
+
+    // Uptime
+    let s = 0;
+    setInterval(() => {
+        s++;
+        let h = Math.floor(s/3600).toString().padStart(2,'0');
+        let m = Math.floor((s%3600)/60).toString().padStart(2,'0');
+        let sec = (s%60).toString().padStart(2,'0');
+        document.getElementById('upt').innerText = `${h}:${m}:${sec}`;
+    }, 1000);
+
+    // Random Logs
+    const logBox = document.getElementById('log-box');
+    const logs = ["Packet sniffed", "Port 8080 open", "Handshake success", "Encrypting layer 7", "Bypassing firewall", "Identity hidden"];
+    setInterval(() => {
+        const d = document.createElement('div');
+        d.innerText = `[${new Date().toLocaleTimeString()}] > ${logs[Math.floor(Math.random()*logs.length)]}`;
+        logBox.prepend(d);
+        if(logBox.childNodes.length > 8) logBox.removeChild(logBox.lastChild);
+    }, 2000);
+</script>
 </body>
 </html>
