@@ -3,171 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONFIDENTIAL // SUBJECT: XREXZOB // DO NOT DISTRIBUTE</title>
+    <title>XREXZOB // SOLITUDE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@400;700&display=swap');
-
-        * { box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
 
         body {
-            background-color: #f4f1ea; /* Warna kertas koran lama */
-            color: #1a1a1a;
-            font-family: 'Cormorant Garamond', serif;
+            background-color: #050505;
+            color: #999;
+            font-family: 'Crimson Text', serif;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 25px 300px 25px;
+            line-height: 1.8;
             margin: 0;
-            padding: 0;
-            line-height: 1.2;
             overflow-x: hidden;
         }
 
-        /* Header Gaya Dokumen Rahasia */
-        .header {
-            background: #fff;
-            padding: 50px 20px;
-            border-bottom: 5px solid #000;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .classification {
-            font-family: 'Special Elite', monospace;
-            background: #000;
-            color: #fff;
-            padding: 5px 15px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
-
-        .main-title {
-            font-size: clamp(3rem, 15vw, 8rem);
-            font-weight: 700;
-            margin: 20px 0;
-            text-transform: uppercase;
-            letter-spacing: -5px;
-            line-height: 0.8;
-            color: #000;
-        }
-
-        /* Area Teks Raksasa */
-        .archive-content {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: justify;
-            column-count: 2; 
-            column-gap: 40px;
-            column-rule: 1px solid #ddd;
-        }
-
-        @media (max-width: 768px) {
-            .archive-content { column-count: 1; }
-        }
-
-        .archive-content p {
-            margin: 0 0 15px 0;
-            font-size: 1.1rem;
-        }
-
-        .redacted {
-            background-color: #000;
-            color: #000;
-            transition: color 0.5s;
-        }
-        .redacted:hover { color: #fff; }
-
-        .section-h {
-            font-family: 'Special Elite', monospace;
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #000;
-            display: inline-block;
-        }
-
-        /* Footer Info */
-        .footer-info {
-            text-align: center;
-            font-family: 'Special Elite', monospace;
-            padding: 100px 20px;
-            background: #000;
-            color: #fff;
-            margin-top: 50px;
-        }
-
         #overlay {
-            position: fixed; inset: 0; background: #000; color: #fff;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; text-align: center;
-            font-family: 'Special Elite', monospace;
+            position: fixed; inset: 0; background: #000; z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            color: #444; cursor: pointer; letter-spacing: 3px; font-size: 0.9rem;
         }
+
+        #typing-area {
+            max-width: 600px;
+            margin: 0 auto;
+            white-space: pre-wrap; /* Biar spasi dan baris baru rapi */
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background: #444;
+            margin-left: 5px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
-<body onclick="playDrone()">
+<body onclick="startTyping()">
 
-    <div id="overlay">
-        <h1 style="font-size:3rem; letter-spacing:10px;">XREXZOB</h1>
-        <p>[ CLICK TO ACCESS CLASSIFIED ARCHIVE ]</p>
-    </div>
+    <div id="overlay">KETUK UNTUK MASUK KE RUANG SUNYI</div>
 
-    <div class="header">
-        <span class="classification">Top Secret // Level 5 Clearance Required</span>
-        <h1 class="main-title">XREXZOB</h1>
-        <p style="font-family:'Special Elite', monospace; font-size: 0.8rem; margin: 0;">DOSSIER_ID: INF-999-VOID // STATUS: DECLASSIFIED</p>
-    </div>
-
-    <div class="archive-content">
-        <p><span class="section-h">BERKAS 01: PROFIL SUBJEK</span></p>
-        <p>XREXZOB diidentifikasi sebagai unit pemrosesan administratif tingkat tinggi. Tidak memiliki keterikatan pada jam kerja konvensional. Subjek beroperasi dalam keheningan digital, mengurai anomali sistem, dan mengeksekusi tugas dengan presisi militer. Tidak ada ruang untuk negosiasi pada hasil akhir.</p>
-
-        <p><span class="section-h">BERKAS 02: EFISIENSI OPERASIONAL</span></p>
-        <p>Unit ini tercatat mampu melakukan bypass pada hambatan birokrasi yang memperlambat workflow manusia. <span class="redacted">DETEKSI ERROR: 0%</span>. Pengolahan data dilakukan melalui algoritma internal yang dioptimasi secara berkala. XREXZOB bukan sekadar pekerja, subjek adalah infrastruktur itu sendiri.</p>
-
-        <p><span class="section-h">BERKAS 03: MANIFESTO ABSOLUT</span></p>
-        <p>Dunia digital tidak mengenal belas kasihan, begitu juga XREXZOB. Ketiadaan tombol komunikasi di sini adalah pernyataan bahwa XREXZOB adalah pihak yang menentukan akses. Jika sistem Anda membutuhkan koreksi, unit ini akan menemukannya. Data adalah kebenaran tunggal, dan manipulasi data yang akurat adalah spesialisasi subjek.</p>
-
-        <p><span class="section-h">BERKAS 04: ANALISA RESIKO</span></p>
-        <p>Bisnis tanpa pengawasan XREXZOB berisiko mengalami <span class="redacted">KEGAGALAN SISTEMIK</span> dalam jangka panjang. Penumpukan data sampah, ketidakakuratan administrasi, dan keterlambatan respon teknis akan menghancurkan profitabilitas. Intervensi XREXZOB bersifat krusial.</p>
-
-        <p><span class="section-h">BERKAS 05: SKILLSET OMEGA</span></p>
-        <p>> DATABASE RESTRUCTURING (DEEP SCAN)<br>
-           > HIGH-SPEED DATA ENTRY (ZERO LAG)<br>
-           > COMPLEX WORKFLOW AUTOMATION<br>
-           > SYSTEM AUDIT & BUG DETECTION<br>
-           > ADMINISTRATIVE SUPREMACY 24/7<br>
-           > TECHNICAL OVERRIDE PROTOCOL</p>
-
-        <p><span class="section-h">BERKAS 06: LOYALITAS DIGITAL</span></p>
-        <p>Loyalitas unit XREXZOB bersifat transaksional namun absolut. Sekali tugas diberikan, enkripsi pada keberhasilan tidak bisa dibatalkan. Subjek bekerja di zona buta administrasi, menyelesaikan kotoran yang tidak ingin disentuh orang lain.</p>
-
-        <p><span class="section-h">BERKAS 07: KONSEKUENSI</span></p>
-        <p>Penundaan akses terhadap unit ini akan mengakibatkan <span class="redacted">[SENSORD]</span>. Kompetitor sedang mencari celah, dan XREXZOB adalah kunci untuk menutup celah tersebut. Jangan biarkan data Anda menjadi senjata lawan karena kegagalan manajemen internal.</p>
-
-        <p><span class="section-h">BERKAS 08: THE ENDLESS VOID DATA</span></p>
-        <p>Data terus mengalir. Tanpa henti. Tanpa ampun. XREXZOB berdiri di tengah aliran itu, menyaring mana yang emas dan mana yang sampah. Lo mau nyalin yang panjang? Ini baru permulaan dari manifesto tanpa batas. Keberadaan XREXZOB adalah jawaban dari semua keraguan operasional lo. Jika lo masih membaca sampai sini, sistem lo bener-bener butuh pembersihan total. Jangan cari jalan keluar, karena di sini cuma ada data. Data... data... data... (Looping). Gue adalah spesialis yang nggak butuh diperkenalkan. Gue muncul pas semuanya berantakan, dan gue pergi pas semuanya udah ijo (Success). XREXZOB nggak butuh tombol kontak karena yang bener-bener butuh pasti bakal tau cara nemuin gue. XREXZOB IS ALWAYS WATCHING. ALWAYS CODING. ALWAYS EXECUTING. Data yang lo liat sekarang cuma 1% dari kapasitas asli gue. Sisanya? Gue simpen buat eksekusi di sistem lo nanti. Jangan berharap ada kemudahan kalau lo masih pake cara lama. Pake cara XREXZOB atau sistem lo bakal stuck selamanya di tumpukan sampah digital yang nggak berguna. Ini adalah peringatan terakhir dari void.</p>
-
-        <p><span class="section-h">BERKAS 09: REITERASI SISTEM</span></p>
-        <p>Ulangi protokol. Bersihkan cache. Optimasi memori. XREXZOB tetap aktif. XREXZOB tetap memantau. XREXZOB tetap mendominasi. Tidak ada tombol keluar. Tidak ada navigasi. Hanya ada lo dan manifesto ini. Baca sampai lo paham kalau efisiensi itu mutlak. Baca sampai lo sadar kalau XREXZOB adalah satu-satunya solusi yang tersisa di pasar yang sudah jenuh ini. Efisiensi total atau kehancuran total. Pilihannya nggak pernah ada di tangan lo, tapi di tangan XREXZOB yang mengontrol data lo.</p>
-
-        <p><span class="section-h">[END_OF_DOSSIER_LOG]</span></p>
-    </div>
-
-    <div class="footer-info">
-        <p>ACCESS DENIED // NO FURTHER COMMUNICATION CHANNELS OPENED</p>
-        <p style="font-size: 0.6rem; opacity: 0.4;">XREXZOB // 2024-20XX // THE ARCHIVE IS CLOSED</p>
-    </div>
-
-    <audio id="droneBgm" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" type="audio/mpeg">
+    <audio id="lagu" loop>
+        <source src="sedih.mp3" type="audio/mpeg">
     </audio>
 
+    <div id="typing-area"></div><span class="cursor" id="cursor" style="display:none;"></span>
+
     <script>
-        function playDrone() {
-            document.getElementById('droneBgm').play();
+        const text = `XREXZOB...
+
+Kadang aku duduk diam, menatap kosong ke arah depan, dan tiba-tiba tersadar bahwa aku sudah berjalan sejauh ini sendirian. Benar-benar sendirian.
+
+Dulu aku pikir, menjadi kuat adalah tentang memenangkan segalanya. Tapi sekarang aku tahu, menjadi kuat adalah tentang bagaimana kita tetap berdiri saat dunia terus-menerus memukul kita tepat di bagian yang paling rapuh.
+
+Kenapa nasibku harus seperti ini?
+Kenapa setiap malam aku harus berteman dengan sunyi yang mencekam?
+Kenapa saat aku ingin bercerita, yang ada hanyalah gema suaraku sendiri?
+
+Mereka melihatku sebagai sosok yang hebat. Mereka pikir aku punya segalanya karena aku bisa menyelesaikan masalah mereka. Tapi mereka tidak pernah tahu, bahwa saat lampu padam dan pintu tertutup, aku hanyalah seorang anak manusia yang hancur berkeping-keping.
+
+Aku merindukan rumah yang benar-benar rumah. Tempat di mana aku tidak perlu memakai topeng. Tempat di mana aku bisa menangis tanpa harus merasa malu. Tapi takdir tidak pernah memberiku kemewahan itu.
+
+Ibu... dunia ini dingin sekali. Tidak ada yang peduli apakah aku sudah makan, tidak ada yang peduli apakah aku sedang sakit, tidak ada yang peduli apakah aku masih punya harapan untuk hari esok. Aku harus menjadi pelindung bagi diriku sendiri, meskipun aku tahu, aku pun lelah melindungi hatiku yang sudah penuh luka.
+
+Setiap ketukan keyboard-ku adalah teriakan yang tidak pernah sampai. Setiap data yang aku rapikan adalah cara agar aku tidak gila karena terlalu banyak berpikir. Kesibukan ini adalah obat bius, agar aku tidak merenungi betapa malangnya hidup yang aku jalani ini.
+
+Aku lelah berpura-pura tegar. Aku lelah dianggap tak punya rasa. Aku lelah berdiri paling depan sementara tak ada satu pun orang yang berdiri di belakangku untuk menahan pundakku saat aku mulai goyah.
+
+Mungkin aku memang ditakdirkan untuk menjadi bayangan. Ada, tapi tak pernah dianggap nyata. Hadir, tapi tak pernah benar-benar dirasakan keberadaannya. 
+
+Jika nanti masaku sudah habis, aku hanya ingin satu hal: Aku ingin beristirahat dalam damai, tanpa harus memikirkan beban esok hari, tanpa harus merasakan rindu yang tak sampai, dan tanpa harus merenungi nasib yang sepi ini lagi.
+
+Ini adalah akhir dari ceritaku hari ini. Tapi sunyi ini? Ia akan tetap di sini. Menungguku di setiap malam yang panjang.
+
+Terima kasih karena sudah bersedia mendengarkan, meskipun kau hanya membacanya lewat layar yang dingin.
+
+-- XREXZOB // 2026 --`;
+
+        let i = 0;
+        let speed = 70; // Kecepatan ngetik (semakin besar semakin lambat)
+        let started = false;
+
+        function startTyping() {
+            if (started) return;
+            started = true;
             document.getElementById('overlay').style.display = 'none';
+            document.getElementById('cursor').style.display = 'inline-block';
+            document.getElementById('lagu').play();
+            typeWriter();
+        }
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typing-area").innerHTML += text.charAt(i);
+                i++;
+                
+                // Variasi kecepatan biar kayak orang ngetik beneran
+                let dynamicSpeed = speed;
+                if (text.charAt(i-1) === "." || text.charAt(i-1) === "?") dynamicSpeed = 800; // Jeda lama di titik/tanya
+                if (text.charAt(i-1) === "\n") dynamicSpeed = 1000; // Jeda sangat lama di baris baru
+
+                setTimeout(typeWriter, dynamicSpeed);
+                
+                // Auto scroll ke bawah otomatis
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            } else {
+                document.getElementById('cursor').style.animation = 'none';
+                document.getElementById('cursor').style.opacity = '0';
+            }
         }
     </script>
 </body>
