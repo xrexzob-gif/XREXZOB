@@ -3,107 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XREXZOB // SOLITUDE</title>
+    <title>XREXZOB Affiliate - Produk Terbaik & Diskon Gila!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background-color: #050505;
-            color: #999;
-            font-family: 'Crimson Text', serif;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 25px 300px 25px;
-            line-height: 1.8;
-            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
             overflow-x: hidden;
         }
 
-        #overlay {
-            position: fixed; inset: 0; background: #000; z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-            color: #444; cursor: pointer; letter-spacing: 3px; font-size: 0.9rem;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        #typing-area {
-            max-width: 600px;
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
-            white-space: pre-wrap; /* Biar spasi dan baris baru rapi */
-            font-size: 1.2rem;
-            font-style: italic;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
 
-        .cursor {
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Products Grid */
+        .products {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .affiliate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-decoration: none;
             display: inline-block;
-            width: 2px;
-            height: 1.2rem;
-            background: #444;
-            margin-left: 5px;
-            animation: blink 0.8s infinite;
+            text-align: center;
         }
 
-        @keyframes blink { 50% { opacity: 0; } }
-    </style>
-</head>
-<body onclick="startTyping()">
-
-    <div id="overlay">KETUK UNTUK MASUK KE RUANG SUNYI</div>
-
-    <audio id="lagu" loop>
-        <source src="sedih.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="typing-area"></div><span class="cursor" id="cursor" style="display:none;"></span>
-
-    <script>
-        const text = `MUHAMAD ARIFIN...
-
-Ibu, kalau saja waktu bisa diputar kembali, aku hanya ingin meminta satu hal: satu hari lagi untuk bisa benar-benar mengingat wajahmu tanpa harus melihat foto. Aku lahir ke dunia ini pada 8 Agustus 2005, membawa harapan yang mungkin dulu Ibu gantungkan di pundak kecilku. Tapi takdir berkata lain. Baru saja aku belajar memanggil namamu, baru saja aku belajar melangkah dengan tanganmu sebagai pegangan, di usia 2 tahun kita harus dipisahkan oleh jarak yang paling jauh—antara dunia dan keabadian. Kini, 19 tahun telah berlalu, dan aku tumbuh besar di tengah riuhnya dunia tanpa pernah lagi mendengar bisikan doa langsung dari bibirmu.
-​Ibu, aku ingin jujur pada dunia dan pada Ibu di sana. Aku tumbuh menjadi anak yang tidak sempurna. Banyak orang yang mengenalku sebagai sosok yang nakal, keras kepala, dan mungkin seringkali melompati batas-batas aturan. Aku sadar sifatku sering bikin pusing, jalanku sering berbelok ke arah yang salah, dan mungkin aku pernah menjadi beban bagi orang-orang di sekitarku. Tapi tahukah Ibu? Di balik semua kenakalan itu, ada seorang anak kecil yang sebenarnya hanya sedang merasa kehilangan arah. Aku nakal karena aku tidak tahu bagaimana cara berdamai dengan rasa iri saat melihat orang lain memiliki tempat untuk pulang. Aku memberontak karena itu adalah satu-satunya cara aku mengekspresikan rasa sakit yang tidak bisa aku terjemahkan dengan kata-kata. Aku merasa dunia ini tidak adil karena harus merenggut Ibu terlalu cepat dari hidupku.
-​Namun, di tengah segala badai yang aku ciptakan sendiri, Tuhan ternyata tidak membiarkan aku hancur sendirian. Di saat aku merasa tidak ada lagi orang yang mau bertahan dengan sifat burukku, Tuhan menghadirkan seseorang yang luar biasa di sampingku. Dia, pasanganku saat ini, adalah sosok yang luar biasa sabar menghadapi egoku. Dia yang tetap menggenggam tanganku saat aku merasa tidak layak untuk dicintai. Dia yang mendengarkan keluh kesahku, memahami segala trauma masa kecilku, dan tetap memilih untuk menetap meskipun dia tahu betapa berantakannya aku di dalam. Lewat dia, aku belajar kalau cinta itu bisa menyembuhkan, dan lewat dia pula, aku merasa seolah-olah Ibu sedang menitipkan pesan dari surga bahwa aku tetap pantas untuk bahagia.
-​Maafkan aku ya, Bu, kalau selama ini aku belum bisa jadi anak yang bisa Ibu banggakan di depan para malaikat. Maaf kalau namaku lebih sering terdengar karena kenakalanku daripada prestasiku. Tapi lewat halaman digital ini, aku ingin bersaksi pada Ibu dan pada semesta, bahwa aku lelah menjadi anak yang nakal. Aku ingin mulai belajar menjadi laki-laki yang lebih baik. Aku ingin berubah, bukan karena ingin dipuji orang lain, tapi karena aku ingin menghormati setiap tetes darah dan air mata yang Ibu korbankan saat melahirkanku dulu. Aku ingin menjadi sosok yang bisa melindungi pasanganku dengan baik, sebagaimana seharusnya seorang laki-laki bersikap.
-​Ibu adalah cinta pertamaku yang tak sempat terbalas, dan dia adalah cinta terakhirku yang akan terus aku perjuangkan. Terima kasih, Bu, sudah memberiku nyawa dan kesempatan untuk melihat dunia yang luas ini, meskipun Ibu tidak bisa mendampingiku melihat hasilnya. Ibu tenang ya di sana, di tempat yang paling indah di sisi Tuhan. Doaku mungkin tidak terdengar keras, tapi setiap malam aku selalu menyelipkan namamu dalam setiap heningku. Aku akan berusaha tegak berdiri, melawan sifat burukku, dan membuktikan kalau anak yang Ibu tinggalkan di usia 2 tahun ini bisa jadi pemenang pada akhirnya. Aku sayang Ibu, kemarin, sekarang, dan sampai kita bertemu lagi di keabadian nanti. Al-Fatihah."
-Ini adalah akhir dari ceritaku hari ini. Tapi sunyi ini? Ia akan tetap di sini. Menungguku di setiap malam yang panjang.
-
-Terima kasih karena sudah bersedia mendengarkan, meskipun kau hanya membacanya lewat layar yang dingin.
-
--- MUHAMAD ARIFIN // Jum'at 10 April 2026 --`;
-
-        let i = 0;
-        let speed = 70; // Kecepatan ngetik (semakin besar semakin lambat)
-        let started = false;
-
-        function startTyping() {
-            if (started) return;
-            started = true;
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('cursor').style.display = 'inline-block';
-            document.getElementById('lagu').play();
-            typeWriter();
+        .affiliate-btn:hover {
+            transform: scale(1.05);
         }
 
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typing-area").innerHTML += text.charAt(i);
-                i++;
-                
-                // Variasi kecepatan biar kayak orang ngetik beneran
-                let dynamicSpeed = speed;
-                if (text.charAt(i-1) === "." || text.charAt(i-1) === "?") dynamicSpeed = 800; // Jeda lama di titik/tanya
-                if (text.charAt(i-1) === "\n") dynamicSpeed = 1000; // Jeda sangat lama di baris baru
+        /* Stats Section */
+        .stats {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
 
-                setTimeout(typeWriter, dynamicSpeed);
-                
-                // Auto scroll ke bawah otomatis
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth'
-                });
-            } else {
-                document.getElementById('cursor').style.animation = 'none';
-                document.getElementById('cursor').style.opacity = '0';
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Instagram */
+        .instagram-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            animation: instagram-bounce 2s infinite;
+            transition: all 0.3s;
+        }
+
+        .instagram-float:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes instagram-bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">🚀 XREXZOB</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="cta-button" target="_blank">Follow IG</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <h1>Diskon Gila-Gilaan!</h1>
+            <p>Belanja hemat dengan promo terbaik dari XREXZOB Affiliate. Hemat hingga 70% untuk semua produk favoritmu!</p>
+            <a href="#products" class="cta-button">Lihat Promo Sekarang</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <h2 class="section-title">Produk Terlaris</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">50% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=250&fit=crop" alt="Smartphone">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartphone Premium</h3>
+                    <div class="product-price">Rp 1.499.000</div>
+                    <div class="original-price">Rp 2.999.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">60% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=250&fit=crop" alt="Laptop">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Gaming Laptop</h3>
+                    <div class="product-price">Rp 7.999.000</div>
+                    <div class="original-price">Rp 19.999.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">70% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=250&fit=crop" alt="Smartwatch">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Smartwatch Pro</h3>
+                    <div class="product-price">Rp 799.000</div>
+                    <div class="original-price">Rp 2.499.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">45% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=400&h=250&fit=crop" alt="Headphones">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Headphones</h3>
+                    <div class="product-price">Rp 599.000</div>
+                    <div class="original-price">Rp 1.099.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">55% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=400&h=250&fit=crop" alt="Camera">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Digital Camera</h3>
+                    <div class="product-price">Rp 2.299.000</div>
+                    <div class="original-price">Rp 4.999.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="discount-badge">65% OFF</div>
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=250&fit=crop" alt="Drone">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Professional Drone</h3>
+                    <div class="product-price">Rp 3.499.000</div>
+                    <div class="original-price">Rp 9.999.000</div>
+                    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="affiliate-btn" target="_blank">
+                        <i class="fab fa-instagram"></i> Order via IG
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>10K+</h3>
+                <p>Produk Tersedia</p>
+            </div>
+            <div class="stat-item">
+                <h3>50K+</h3>
+                <p>Member Aktif</p>
+            </div>
+            <div class="stat-item">
+                <h3>1M+</h3>
+                <p>Transaksi Berhasil</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Float -->
+    <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" class="instagram-float" target="_blank">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 XREXZOB Affiliate. Semua hak dilindungi. <br>
+            <small>Follow <a href="https://www.instagram.com/xrexzob?igsh=cTV1ODZxcHM5dGVl" style="color:#f09433;" target="_blank">@xrexzob</a> untuk promo terbaru!</small></p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(102, 126, 234, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
     </script>
 </body>
 </html>
