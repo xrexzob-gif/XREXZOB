@@ -23,78 +23,60 @@
         .container {
             width: 100%;
             max-width: 850px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.01);
-            border-radius: 15px;
-        }
-
-        /* --- Gaya Intro (Halaman Depan) --- */
-        #start-screen {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .intro-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid #222;
-            border-radius: 10px;
             padding: 20px;
-            width: 300px;
-            cursor: pointer;
-            transition: 0.5s;
         }
 
-        .intro-card:hover {
-            border-color: #555;
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-5px);
-        }
-
-        .intro-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .intro-card span {
-            display: block;
-            color: #aaa;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* --- Gaya Konten Utama --- */
+        /* --- Navigasi Atas --- */
         .nav-buttons {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 1s;
         }
 
         .nav-btn {
-            padding: 12px 20px;
+            padding: 12px 15px;
             background: transparent;
             border: 1px solid #333;
             color: #888;
             cursor: pointer;
             font-family: 'Quicksand', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             transition: 0.5s;
             text-transform: uppercase;
+            flex: 1;
+            max-width: 200px;
         }
 
-        .nav-btn:hover, .nav-btn.active {
+        .nav-btn.active {
             border-color: #fff;
             color: #fff;
             background: rgba(255,255,255,0.05);
         }
 
+        /* --- Area Foto --- */
+        #photo-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border: 1px solid #222;
+        }
+
+        #display-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: opacity 0.5s;
+        }
+
+        /* --- Teks Pesan --- */
         #text-container {
             font-family: 'Lora', serif;
             font-size: 1.1rem;
@@ -103,6 +85,7 @@
             white-space: pre-wrap;
             font-style: italic;
             text-align: left;
+            padding: 0 10px;
         }
 
         .signature {
@@ -132,26 +115,38 @@
 
         @keyframes blink { 50% { opacity: 0; } }
         .hidden { display: none !important; }
+        
+        #start-btn {
+            padding: 20px 40px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            cursor: pointer;
+            letter-spacing: 2px;
+            font-family: 'Quicksand', sans-serif;
+            transition: 0.5s;
+        }
+
+        #start-btn:hover {
+            background: #fff;
+            color: #000;
+        }
     </style>
 </head>
 <body>
 
     <div id="start-screen">
-        <div class="intro-card" onclick="startWithTab(1)">
-            <img src="2.jpg" alt="Pesan buat Raisya">
-            <span>Pesan buat Raisya</span>
-        </div>
-
-        <div class="intro-card" onclick="startWithTab(2)">
-            <img src="keluarga.jpg" alt="Pesan buat Keluarga">
-            <span>Pesan buat Bapak & Keluarga</span>
-        </div>
+        <button id="start-btn" onclick="startApp()">BUKA PESAN TERAKHIR ARIFIN</button>
     </div>
 
     <div class="container hidden" id="main-content">
-        <div class="nav-buttons">
+        <div class="nav-buttons" id="nav-btns">
             <button id="btn1" class="nav-btn" onclick="switchTab(1)">Pesan buat Raisya</button>
             <button id="btn2" class="nav-btn" onclick="switchTab(2)">Pesan buat Bapak & Keluarga</button>
+        </div>
+
+        <div id="photo-container">
+            <img id="display-photo" src="" alt="Kenangan">
         </div>
 
         <div id="text-container"><span id="typed-text"></span><span id="cursor"></span></div>
@@ -165,76 +160,66 @@
     </audio>
 
     <script>
-        // --- KATA-KATA TIDAK DIEDIT SAMA SEKALI ---
+        // PESAN UNTUK RAISYA (TETAP SAMA)
         const message1 = "Sayang, mungkin saat pesan ini muncul di hadapanmu, aku sudah tidak lagi bisa mendengar suaramu atau menggenggam tanganmu...\n\nMenulis ini rasanya berat, tapi aku ingin kamu tahu betapa berartinya kehadiranmu bagiku. Seandainya takdir memaksaku untuk pergi lebih dulu—entah karena sakit yang selama ini aku tahan, atau karena alasan lain yang menjadi rahasia Tuhan—aku ingin kamu tetap tegar menghadapi dunia.\n\nTolong, jaga dirimu baik-baik ya? Makanlah dengan teratur, istirahatlah yang cukup, dan jangan biarkan kesedihan menyelimuti harimu terlalu lama. Aku tahu mungkin akan sulit, tapi aku ingin melihatmu terus berjalan. \n\nKalau suatu hari nanti kamu merasa sangat rindu, kalau beban hidup terasa terlalu berat, atau jika kamu sekadar ingin bercerita tentang harimu... janganlah kamu merasa sendirian. Datanglah kepada Allah, bersujudlah dalam sholatmu. Ceritakan semuanya di sana. Aku selalu berharap, melalui perantara doa dan sujudmu, aku bisa tetap merasakan kehadiranmu dan mendengar setiap keluh kesahmu dari tempatku yang baru.\n\nAku ingin kamu menjadi sosok yang luar biasa. Rajinlah sholat, jangan pernah tinggalkan kewajibanmu pada Sang Pencipta. Berdoalah selalu untuk kesuksesanmu di dunia dan akhirat. Demi Tuhan, melihat kamu tetap istiqomah, tetap berjuang, dan tetap tersenyum dalam ketaatan sudah cukup membuat aku menjadi lelaki paling bangga yang pernah memilikimu.\n\nMaafkan aku, sayang... Maaf jika kehadiranku selama ini hanya memberikan beban. Maaf karena aku belum bisa jadi yang terbaik, belum bisa membahagiakanmu sepenuhnya, dan maaf karena aku tidak bisa menemanimu sampai kita menua bersama. Jika waktu bisa aku hentikan, aku hanya ingin tetap di sini, menjaga dan mencintaimu.\n\nNamun jika perpisahan ini adalah garisnya, ingatlah bahwa kamu pernah dicintai oleh seseorang dengan sangat tulus. Terima kasih sudah menemaniku di masa-masa sulit maupun senang. Sukseslah untuk masa depanmu, kejar semua mimpi kita yang belum sempat aku wujudkan bersamamu. Aku menyayangimu selamanya, lebih dari sekadar kata-kata yang bisa aku tuliskan di sini.";
 
-        const message2 = "Untuk seluruh keluarga besarku yang kucintai, terutama untuk Bapak...\n\nPak, maafkan Arifin ya. Maaf kalau selama ini Arifin hanya bisa merepotkan dan menjadi beban buat Bapak. Arifin tahu betapa keras perjuangan Bapak selama ini untuk membesarkan Arifin, membanting tulang tanpa lelah, dan Arifin merasa sangat bersalah karena belum sempat membalas keringat Bapak dengan kebahagiaan atau kesuksesan yang Bapak impikan.\n\nTerima kasih sudah menjadi sosok yang luar biasa kuat buat Arifin. Tolong maafkan segala kesalahan Arifin, segala kata-kata yang mungkin pernah menyakiti hati Bapak, dan segala sikap Arifin yang belum bisa membanggakan. Arifin sayang banget sama Bapak. Tolong ikhlaskan Arifin ya, Pak...\n\nUntuk saudara-saudaraku semuanya, maafkan aku jika selama hidupku aku belum bisa menjadi saudara yang baik. Maaf jika keadaanku sekarang justru menambah beban pikiran kalian. Aku sangat berterima kasih karena kalian sudah mau menerima dan menyayangiku apa adanya. Tolong jaga Bapak baik-baik ya, tetaplah rukun dan saling menguatkan meski aku sudah tidak ada. Arifin titip maaf untuk semua kesalahan yang pernah Arifin perbuat. Terima kasih sudah menjadi bagian dari hidupku.";
+        // PESAN UNTUK KELUARGA (VERSI JAUH LEBIH PANJANG)
+        const message2 = "Untuk seluruh keluarga besarku yang kucintai, terutama untuk Bapak...\n\nPak, Arifin menulis ini dengan rasa sesak di dada. Maafkan Arifin ya, Pak. Maaf kalau selama ini Arifin hanya bisa merepotkan, menambah beban pikiran, dan belum sempat membalas satu tetes pun keringat perjuangan Bapak. Arifin tahu benar bagaimana Bapak membanting tulang siang dan malam, menahan lelah demi menghidupi Arifin dan keluarga. Arifin merasa sangat berdosa karena harus pergi tanpa bisa memberikan kebanggaan yang Bapak harapkan.\n\nTerima kasih sudah menjadi sosok pahlawan yang luar biasa kuat. Terima kasih sudah sabar menghadapi Arifin yang banyak kekurangan ini. Tolong Pak, maafkan segala kesalahan Arifin, segala bantahan, atau sikap yang pernah melukai hati Bapak. Arifin sayang banget sama Bapak, meski mungkin Arifin jarang mengucapkannya secara langsung. Tolong ikhlaskan Arifin ya, Pak. Jangan tangisi kepergian Arifin terlalu dalam, Arifin ingin Bapak tetap kuat.\n\nUntuk saudara-saudaraku semuanya, maafkan aku jika selama hidupku aku belum bisa menjadi saudara yang bisa kalian andalkan. Maaf jika kehadiranku justru seringkali menambah beban pikiran kalian. Aku sangat berterima kasih karena kalian sudah mau menerima dan tetap menyayangiku apa adanya sampai detik ini. \n\nArifin titip Bapak ya... Tolong jaga beliau baik-baik. Jangan biarkan beliau merasa sendirian atau kesepian. Tetaplah rukun, saling menjaga, dan jangan pernah putus tali persaudaraan hanya karena aku sudah tidak ada. Arifin sayang kalian semua. Maafkan segala khilafku, dan tolong kirimkan doa di setiap sujud kalian agar Arifin tenang di sana. Terima kasih sudah menjadi keluarga terbaik yang pernah Arifin miliki.";
 
         let currentTab = 0;
         let typingTimeout;
-        let musicStarted = false;
         const music = document.getElementById('sad-music');
         const typedTextElement = document.getElementById('typed-text');
+        const photoContainer = document.getElementById('photo-container');
+        const displayPhoto = document.getElementById('display-photo');
 
-        // Fungsi Mulai dari Intro
-        function startWithTab(tabNum) {
+        function startApp() {
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('main-content').classList.remove('hidden');
-            
-            if (!musicStarted) {
-                music.play().catch(e => console.log("Audio diblokir browser, butuh interaksi user."));
-                musicStarted = true;
-            }
+            document.getElementById('nav-btns').style.opacity = "1";
+            photoContainer.style.display = "block";
+            music.play();
             updateTime();
-            switchTab(tabNum);
+            switchTab(1);
         }
 
-        // Fungsi Ganti Pesan di Dalam
         function switchTab(tabNum) {
             if (currentTab === tabNum) return;
             currentTab = tabNum;
-
-            // Reset Tampilan Mengetik
             clearTimeout(typingTimeout);
             typedTextElement.textContent = "";
             document.getElementById('cursor').style.display = 'inline-block';
             document.getElementById('signature').style.opacity = "0";
             document.getElementById('timestamp').style.opacity = "0";
-
-            // Atur Tombol Aktif
             document.getElementById('btn1').className = (tabNum === 1 ? "nav-btn active" : "nav-btn");
             document.getElementById('btn2').className = (tabNum === 2 ? "nav-btn active" : "nav-btn");
 
-            // Mulai Mengetik Pesan
+            displayPhoto.style.opacity = "0";
+            setTimeout(() => {
+                displayPhoto.src = (tabNum === 1 ? "2.jpg" : "keluarga.jpg");
+                displayPhoto.style.opacity = "1";
+            }, 300);
+
             const textToType = (tabNum === 1 ? message1 : message2);
             typeWriter(textToType, 0);
         }
 
-        // Efek Mengetik
         function typeWriter(text, index) {
             if (index < text.length) {
                 typedTextElement.textContent += text.charAt(index);
-                typingTimeout = setTimeout(() => typeWriter(text, index + 1), 60); // Kecepatan 60ms
+                typingTimeout = setTimeout(() => typeWriter(text, index + 1), 60);
             } else {
-                // Selesai Mengetik
                 document.getElementById('cursor').style.display = 'none';
                 document.getElementById('signature').style.opacity = "1";
                 document.getElementById('timestamp').style.opacity = "1";
             }
         }
 
-        // Update Waktu Otomatis
         function updateTime() {
             const now = new Date();
             const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-            const dayName = days[now.getDay()];
-            const hour = now.getHours().toString().padStart(2, '0');
-            const minute = now.getMinutes().toString().padStart(2, '0');
-            const date = now.getDate();
             const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            const monthName = months[now.getMonth()];
-            
-            document.getElementById('timestamp').textContent = `Tertulis pada: ${dayName}, ${date} ${monthName} ${now.getFullYear()} | ${hour}:${minute} WIB`;
+            document.getElementById('timestamp').textContent = `Tertulis pada: ${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} | ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} WIB`;
         }
     </script>
 </body>
